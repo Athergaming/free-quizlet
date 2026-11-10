@@ -1,72 +1,72 @@
-/* Flipside — warm paper, deep green ink, a highlighter-yellow accent. */
+/* Flipside — bright blue on cool white, deep navy at night, a yellow accent. */
 
 :root {
-  --bg: #f5f2ea;
-  --surface: #fffdf8;
-  --surface-2: #ece7da;
-  --ink: #1d1b20;
-  --muted: #68646f;
-  --line: #ddd6c5;
-  --accent: #0d7a63;
-  --accent-strong: #0a6351;
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-2: #e9ecf5;
+  --ink: #282e3e;
+  --muted: #586380;
+  --line: #d9dde8;
+  --accent: #4255ff;
+  --accent-strong: #3442d9;
   --accent-ink: #ffffff;
-  --accent-soft: #d8eee7;
-  --hl: #ffcf3f;
-  --good: #17875a;
-  --good-soft: #dbf2e5;
-  --bad: #c93c30;
-  --bad-soft: #fbe2de;
-  --warn: #c2621f;
-  --warn-soft: #fbe7d6;
-  --shadow-sm: 0 1px 2px rgba(50, 38, 12, 0.08);
-  --shadow: 0 1px 2px rgba(50, 38, 12, 0.06), 0 10px 28px rgba(50, 38, 12, 0.09);
+  --accent-soft: #e8eaff;
+  --hl: #ffcd1f;
+  --good: #0b7a54;
+  --good-soft: #dff5ec;
+  --bad: #c8323f;
+  --bad-soft: #fde6e8;
+  --warn: #a85400;
+  --warn-soft: #fff0db;
+  --shadow-sm: 0 1px 2px rgba(40, 46, 62, 0.08);
+  --shadow: 0 1px 2px rgba(40, 46, 62, 0.06), 0 10px 28px rgba(40, 46, 62, 0.1);
   --radius: 16px;
   --radius-sm: 10px;
   --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --display: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --display: var(--font);
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #151417;
-    --surface: #201f24;
-    --surface-2: #2b2930;
-    --ink: #f2eee6;
-    --muted: #a5a1b0;
-    --line: #38353f;
-    --accent: #45caab;
-    --accent-strong: #63d8bc;
-    --accent-ink: #0b1f1a;
-    --accent-soft: #1b3a33;
-    --good: #4fcb8e;
-    --good-soft: #17352a;
-    --bad: #f07a6e;
-    --bad-soft: #40211e;
-    --warn: #f0a266;
-    --warn-soft: #3c2a1c;
+    --bg: #0a092d;
+    --surface: #2e3856;
+    --surface-2: #1c2242;
+    --ink: #f6f7fb;
+    --muted: #b3bcd6;
+    --line: #4a5478;
+    --accent: #8c9bff;
+    --accent-strong: #a9b4ff;
+    --accent-ink: #0a092d;
+    --accent-soft: #232a66;
+    --good: #62dba8;
+    --good-soft: #143d33;
+    --bad: #ff8f98;
+    --bad-soft: #4a1f2c;
+    --warn: #ffb866;
+    --warn-soft: #473218;
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 28px rgba(0, 0, 0, 0.35);
     color-scheme: dark;
   }
 }
 :root[data-theme='dark'] {
-  --bg: #151417;
-  --surface: #201f24;
-  --surface-2: #2b2930;
-  --ink: #f2eee6;
-  --muted: #a5a1b0;
-  --line: #38353f;
-  --accent: #45caab;
-  --accent-strong: #63d8bc;
-  --accent-ink: #0b1f1a;
-  --accent-soft: #1b3a33;
-  --good: #4fcb8e;
-  --good-soft: #17352a;
-  --bad: #f07a6e;
-  --bad-soft: #40211e;
-  --warn: #f0a266;
-  --warn-soft: #3c2a1c;
+  --bg: #0a092d;
+  --surface: #2e3856;
+  --surface-2: #1c2242;
+  --ink: #f6f7fb;
+  --muted: #b3bcd6;
+  --line: #4a5478;
+  --accent: #8c9bff;
+  --accent-strong: #a9b4ff;
+  --accent-ink: #0a092d;
+  --accent-soft: #232a66;
+  --good: #62dba8;
+  --good-soft: #143d33;
+  --bad: #ff8f98;
+  --bad-soft: #4a1f2c;
+  --warn: #ffb866;
+  --warn-soft: #473218;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 28px rgba(0, 0, 0, 0.35);
   color-scheme: dark;
@@ -217,7 +217,7 @@ button {
 }
 .btn.danger {
   background: var(--bad);
-  color: #fff;
+  color: var(--bg);
 }
 .btn.big {
   padding: 0.85rem 1.4rem;
@@ -445,7 +445,7 @@ body.in-mode .topbar {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   align-items: center;
   gap: 2rem;
   padding: clamp(1.5rem, 4vw, 3rem);
@@ -456,7 +456,7 @@ body.in-mode .topbar {
   overflow: hidden;
 }
 .hero h1 {
-  font-size: clamp(2rem, 5vw, 3.1rem);
+  font-size: clamp(1.9rem, 4.2vw, 2.7rem);
 }
 .hero h1 em {
   font-style: italic;
@@ -1907,7 +1907,7 @@ body.in-mode .topbar {
 }
 .toast.bad {
   background: var(--bad);
-  color: #fff;
+  color: var(--bg);
 }
 .toast.leaving {
   opacity: 0;
@@ -1925,7 +1925,7 @@ body.in-mode .topbar {
   width: min(94vw, 40rem);
 }
 .modal::backdrop {
-  background: rgba(20, 16, 8, 0.5);
+  background: rgba(10, 9, 45, 0.55);
 }
 .modal-box {
   margin: 0;
