@@ -1,0 +1,11 @@
+{
+  "name": "flipside",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free flashcard study app: Flashcards, Learn, Test and Match. No accounts, no server.",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/lib.test.js"
+  }
+}

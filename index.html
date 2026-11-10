@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flipside — free flashcards, no account</title>
+    <meta
+      name="description"
+      content="Flashcards, Learn, Test and Match study modes. Free, no sign-up, your sets stay in your browser."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='9' width='20' height='15' rx='4' fill='%23ffcf3f' transform='rotate(-10 13 16)'/%3E%3Crect x='8' y='8' width='21' height='16' rx='4' fill='%230d7a63'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script>
+      try {
+        var t = localStorage.getItem('flipside.theme');
+        if (t) document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="topbar" id="topbar">
+      <a class="brand" href="#/" aria-label="Flipside home">
+        <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
+          <rect x="3" y="9" width="20" height="15" rx="4" fill="var(--hl)" transform="rotate(-10 13 16)" />
+          <rect x="8" y="8" width="21" height="16" rx="4" fill="var(--accent)" />
+        </svg>
+        <span>Flipside</span>
+      </a>
+      <nav class="topnav" aria-label="Main">
+        <a href="#/" data-nav="home">Your sets</a>
+      </nav>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch colour theme"></button>
+        <a class="btn ghost" href="#/import" data-nav="import">Import</a>
+        <a class="btn primary" href="#/new" data-nav="new">Create set</a>
+      </div>
+    </header>
+    <main id="main" tabindex="-1"></main>
+    <div id="toast-root" aria-live="polite"></div>
+    <div id="modal-root"></div>
+    <noscript><p style="padding: 2rem">Flipside needs JavaScript turned on to run.</p></noscript>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
