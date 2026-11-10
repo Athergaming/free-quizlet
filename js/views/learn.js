@@ -181,7 +181,7 @@ export function learn(root, { set }) {
     let feedback = '';
     if (answered) {
       feedback = correct
-        ? `<div class="feedback good" role="status">${icon('check')} ${PRAISE[Math.floor(Math.random() * PRAISE.length)]}</div>`
+        ? `<div class="feedback good" role="status"><span>${icon('check')} ${PRAISE[Math.floor(Math.random() * PRAISE.length)]}</span></div>`
         : `<div class="feedback bad" role="status">
              <span>${icon('x')} ${given ? (current.close ? 'So close. Check the spelling.' : 'Not quite. This one will come back.') : "No problem. You'll see this one again."}</span>
              <span class="feedback-actions">
