@@ -733,8 +733,9 @@ body.in-mode .topbar {
   transform-style: preserve-3d;
   transition: transform 0.45s cubic-bezier(0.3, 0.9, 0.3, 1);
 }
+/* Cards turn over top-to-bottom, the way you flip a paper note card. */
 .flip.is-flipped .flip-inner {
-  transform: rotateY(180deg);
+  transform: rotateX(180deg);
 }
 .face {
   position: absolute;
@@ -752,7 +753,7 @@ body.in-mode .topbar {
   overflow: hidden;
 }
 .face.back {
-  transform: rotateY(180deg);
+  transform: rotateX(180deg);
   border-color: var(--accent);
 }
 .face-top {
@@ -824,6 +825,22 @@ body.in-mode .topbar {
   justify-content: center;
   gap: 1.5rem;
   margin-top: 1.1rem;
+}
+.deck-nav.split {
+  justify-content: space-between;
+}
+.deck-nav-main {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.icon-btn.toggle[aria-pressed='true'] {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.hint.center {
+  margin: 0.8rem 0 0;
+  text-align: center;
 }
 .deck-count {
   min-width: 5rem;

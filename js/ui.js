@@ -46,6 +46,7 @@ const PATHS = {
   reset: '<path d="M5 12a7 7 0 107-7H7.500M10 2.500L7.500 5 10 7.500"/>',
   copy: '<rect x="8.500" y="8.500" width="11" height="11" rx="2"/><path d="M5.500 15.500h-1v-11h11v1"/>',
   bookmark: '<path d="M6.500 4h11v16.500l-5.500-4-5.500 4z"/>',
+  expand: '<path d="M4.500 9.500v-5h5M19.500 9.500v-5h-5M4.500 14.500v5h5M19.500 14.500v5h-5"/>',
 };
 
 export const icon = (name, cls = '') =>

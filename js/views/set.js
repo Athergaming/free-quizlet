@@ -4,6 +4,7 @@ import { toText } from '../lib/importer.js';
 import {
   esc,
   icon,
+  shuffle,
   plural,
   toast,
   modal,
@@ -41,6 +42,7 @@ export function setView(root, { set }) {
   let flipped = false;
   let sort = 'original';
   let starredOnly = false;
+  let deck = set.cards; // the preview's card order; shuffling replaces it
 
   const stats = store.stats(set);
 
@@ -82,11 +84,16 @@ export function setView(root, { set }) {
         set.cards.length
           ? `<div class="deck-preview">
                <div id="preview-card"></div>
-               <div class="deck-nav">
-                 <button class="round-btn" data-action="prev" aria-label="Previous card">${icon('left')}</button>
-                 <span class="deck-count" id="preview-count"></span>
-                 <button class="round-btn" data-action="next" aria-label="Next card">${icon('right')}</button>
+               <div class="deck-nav split">
+                 <button class="icon-btn toggle" data-action="shuffle" aria-pressed="false" aria-label="Shuffle the cards" title="Shuffle">${icon('shuffle')}</button>
+                 <div class="deck-nav-main">
+                   <button class="round-btn" data-action="prev" aria-label="Previous card">${icon('left')}</button>
+                   <span class="deck-count" id="preview-count"></span>
+                   <button class="round-btn" data-action="next" aria-label="Next card">${icon('right')}</button>
+                 </div>
+                 <a class="icon-btn" href="#/set/${set.id}/flashcards" aria-label="Open flashcards full screen" title="Full screen">${icon('expand')}</a>
                </div>
+               <p class="hint center"><kbd>Space</kbd> flip · <kbd>←</kbd> <kbd>→</kbd> move</p>
              </div>`
           : `<div class="empty-state"><h2>This set is empty</h2><p><a class="btn primary" href="#/set/${set.id}/edit">Add cards</a></p></div>`
       }
@@ -116,17 +123,17 @@ export function setView(root, { set }) {
   const termList = root.querySelector('#term-list');
 
   function paintPreview(dir = '') {
-    if (!set.cards.length) return;
-    const c = set.cards[idx];
+    if (!deck.length) return;
+    const c = deck[idx];
     previewCard.innerHTML = `
       <div class="flip ${flipped ? 'is-flipped' : ''} ${dir}" data-action="flip" role="button" tabindex="0"
-           aria-label="Flashcard ${idx + 1} of ${set.cards.length}. Press Enter to flip.">
+           aria-label="Flashcard ${idx + 1} of ${deck.length}. Press space to flip.">
         <div class="flip-inner">
           <div class="face front"><span class="face-label">Term</span><div class="face-text ${sizeClass(c.term)}">${esc(c.term)}</div></div>
           <div class="face back"><span class="face-label">Definition</span><div class="face-text ${sizeClass(c.def)}">${esc(c.def)}</div></div>
         </div>
       </div>`;
-    previewCount.textContent = `${idx + 1} / ${set.cards.length}`;
+    previewCount.textContent = `${idx + 1} / ${deck.length}`;
   }
 
   function paintTerms() {
@@ -154,8 +161,8 @@ export function setView(root, { set }) {
   }
 
   function move(delta) {
-    if (!set.cards.length) return;
-    idx = (idx + delta + set.cards.length) % set.cards.length;
+    if (!deck.length) return;
+    idx = (idx + delta + deck.length) % deck.length;
     flipped = false;
     paintPreview(delta > 0 ? 'enter-right' : 'enter-left');
   }
@@ -194,7 +201,15 @@ export function setView(root, { set }) {
     const action = el.dataset.action;
     const row = el.closest('.term-row');
     if (action === 'flip') flip();
-    else if (action === 'prev') move(-1);
+    else if (action === 'shuffle') {
+      const on = el.getAttribute('aria-pressed') !== 'true';
+      el.setAttribute('aria-pressed', on);
+      deck = on ? shuffle(set.cards) : set.cards;
+      idx = 0;
+      flipped = false;
+      paintPreview('enter-right');
+      toast(on ? 'Cards shuffled' : 'Back to the original order');
+    } else if (action === 'prev') move(-1);
     else if (action === 'next') move(1);
     else if (action === 'share') share();
     else if (action === 'star' && row) {
@@ -242,13 +257,19 @@ export function setView(root, { set }) {
   }
 
   function onKey(e) {
-    if (e.target.closest?.('.flip') && (e.key === 'Enter' || e.key === ' ')) {
+    if (!deck.length || document.querySelector('dialog[open]')) return;
+    const onCard = !!e.target.closest?.('.flip');
+    // Keys pressed on the card or its controls belong to the deck (Enter still activates a
+    // focused button); elsewhere on the page, leave inputs and buttons alone.
+    const free = onCard || !!e.target.closest?.('.deck-preview') || !isTyping(e);
+    if (e.key === ' ' && free) {
+      e.preventDefault(); // stop the page scrolling
+      flip();
+    } else if (e.key === 'Enter' && onCard) {
       e.preventDefault();
-      return flip();
-    }
-    if (isTyping(e) || document.querySelector('dialog[open]')) return;
-    if (e.key === 'ArrowLeft') move(-1);
-    else if (e.key === 'ArrowRight') move(1);
+      flip();
+    } else if (e.key === 'ArrowLeft' && free) move(-1);
+    else if (e.key === 'ArrowRight' && free) move(1);
   }
 
   root.querySelector('#sort').addEventListener('change', (e) => {
